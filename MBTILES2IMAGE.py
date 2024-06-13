@@ -135,10 +135,10 @@ def get_params_and_dir():
 def display_help():
     print("""
         Use:
-            MAKE_MAPS.exe <mbtiles file> <map to make:OPTIONAL>
+            MBTILES2IMAGE.py <mbtiles file> <map to make:OPTIONAL>
 
         Example:
-            MAKE_MAPS.exe mbtilesfile.mbtiles 6 -r -k -f jpeg
+            MBTILES2IMAGE.py mbtilesfile.mbtiles 6 -r -k -f jpeg
 
         Params:
             -force  [Forces the program to unpack the .mbtiles file.
