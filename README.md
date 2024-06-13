@@ -2,7 +2,7 @@
 This command line tool makes images from the contents of a .mbtiles file.
 
 ### Usage:
-```cmd
+```txt
 
         MBTILES2IMAGE.py <mbtiles file> <map to make:OPTIONAL>
 
