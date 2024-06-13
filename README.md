@@ -1,6 +1,11 @@
 # MBTILES2IMAGE
 This command line tool makes images from the contents of a .mbtiles file.
 
+### Installation:
+- Install [Libvips](https://github.com/libvips/libvips) and add bin to path in environment variables.
+
+- Install packages in requirements.txt.
+
 ### Usage:
 ```txt
 
