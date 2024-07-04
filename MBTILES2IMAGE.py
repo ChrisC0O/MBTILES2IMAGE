@@ -429,9 +429,9 @@ def make_maps_disk_version(dirname, map_to_make=None, params=None):
         sys.exit()
 
     if "-r" in params:
-        reverse_col = False
-    else:
         reverse_col = True
+    else:
+        reverse_col = False
 
     if not os.path.isdir(f"./{dirname.split('.')[0]}") or "-force" in params:
         extract(dirname)
@@ -495,11 +495,11 @@ def make_maps_disk_version(dirname, map_to_make=None, params=None):
                 if value not in all_tiles:
                     all_tiles.append(int(i.split(".")[0]))
 
-        all_tiles.sort(key=int)
+        all_tiles.sort(key=int, reverse=True)
 
-        for temp in all_tiles:
+        for col in collums_folders:
             tile_holder = []
-            for col in collums_folders:
+            for temp in all_tiles:
                 if os.path.isfile(f"./{dirname}/{MAP}/{col}/{temp}.{IMAGE_FILETYPE}"):
                     tile_holder.append(f"./{dirname}/{MAP}/{col}/{temp}.{IMAGE_FILETYPE}")
                 else:
@@ -549,7 +549,7 @@ def make_maps_disk_version(dirname, map_to_make=None, params=None):
                     image_array.append(im)
                     continue
 
-                im_column = pyvips.Image.arrayjoin(image_array)
+                im_column = pyvips.Image.arrayjoin(image_array, across=1)
                 im_column.write_to_file(f"./temp/{counter}_{MAP}.png")
                 bar()
 
@@ -572,7 +572,7 @@ def make_maps_disk_version(dirname, map_to_make=None, params=None):
                 im = pyvips.Image.new_from_file(f"./temp/{filename}_{MAP}.png")
                 image_array.append(im)
 
-        im_plate = pyvips.Image.arrayjoin(image_array, across=1)
+        im_plate = pyvips.Image.arrayjoin(image_array, across=len(column_temp))
 
         print("")
 
@@ -601,9 +601,9 @@ def make_maps_sql_version(dirname, map_to_make=None, params=None):
         sys.exit()
 
     if "-r" in params:
-        reverse_col = False
-    else:
         reverse_col = True
+    else:
+        reverse_col = False
 
     mbtiles = OpenMbTilesSQL(dirname)
 
@@ -659,11 +659,11 @@ def make_maps_sql_version(dirname, map_to_make=None, params=None):
                 if i not in all_tiles:
                     all_tiles.append(int(i))
 
-        all_tiles.sort(key=int)
+        all_tiles.sort(key=int, reverse=True)
 
-        for temp in all_tiles:
+        for col in collums_folders:
             tile_holder = []
-            for col in collums_folders:
+            for temp in all_tiles:
                 if mbtiles.is_image(MAP, col, temp) is True:
                     tile_holder.append([MAP, col, temp])
                 else:
@@ -713,7 +713,7 @@ def make_maps_sql_version(dirname, map_to_make=None, params=None):
                     image_array.append(im)
                     continue
 
-                im_column = pyvips.Image.arrayjoin(image_array)
+                im_column = pyvips.Image.arrayjoin(image_array, across=1)
                 im_column.write_to_file(f"./temp/{counter}_{MAP}.png")
                 bar()
 
@@ -736,7 +736,7 @@ def make_maps_sql_version(dirname, map_to_make=None, params=None):
                 im = pyvips.Image.new_from_file(f"./temp/{filename}_{MAP}.png")
                 image_array.append(im)
 
-        im_plate = pyvips.Image.arrayjoin(image_array, across=1)
+        im_plate = pyvips.Image.arrayjoin(image_array, across=len(column_temp))
 
         print("")
 
